@@ -1,3 +1,5 @@
+import random
+
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
     if difficulty == "Easy":
@@ -71,3 +73,17 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
         return current_score - 5
 
     return current_score
+
+
+def reset_game_state(session_state: dict, low: int, high: int, difficulty: str):
+    """
+    Reset session-like dict to start a new game.
+    - session_state can be st.session_state or a plain dict in tests.
+    """
+    session_state["attempts"] = 0
+    session_state["secret"] = random.randint(low, high)
+    session_state["score"] = 0
+    session_state["history"] = []
+    session_state["status"] = "playing"
+    session_state["last_hint"] = None
+    session_state[f"guess_input_{difficulty}"] = ""
