@@ -119,6 +119,7 @@ with st.expander("Developer Debug Info"):
     st.write("Difficulty:", difficulty)
     st.write("History:", st.session_state.history)
 
+# FIXME: The attempt counter logic breaks here
 raw_guess = st.text_input(
     "Enter your guess:",
     key=f"guess_input_{difficulty}"
