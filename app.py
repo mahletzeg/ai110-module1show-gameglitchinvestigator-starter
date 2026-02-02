@@ -77,8 +77,16 @@ with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
 if new_game:
-    # ...existing new game reset logic...
-    st.rerun()
+    st.session_state.attempts = 0
+    st.session_state.secret = random.randint(low, high)
+    st.session_state.score = 0
+    st.session_state.history = []
+    st.session_state.status = "playing"
+    st.session_state.last_hint = None
+    # clear the text input widget value (use the same key used by st.text_input)
+    st.session_state[f"guess_input_{difficulty}"] = ""
+    st.success("New game started.")
+    st.experimental_rerun()
 
 if "last_hint" not in st.session_state:
     st.session_state.last_hint = None
