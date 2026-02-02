@@ -7,6 +7,8 @@ from logic_utils import (
     update_score,
 )
 
+#FIX: Refactored core game logic into logic_utils.py using GitHub Copilot (Agent mode)
+
 st.set_page_config(page_title="Glitchy Guesser", page_icon="🎮")
 
 st.title("🎮 Game Glitch Investigator")
@@ -68,6 +70,7 @@ raw_guess = st.text_input(
     # key=f"guess_input_{difficulty}"
 )
 
+#FIX: Fixed double-click/attempt bug — Copilot assisted
 col1, col2, col3 = st.columns(3)
 with col1:
     submit = st.button("Submit Guess 🚀")
@@ -76,6 +79,7 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
+#FIX: Place button handlers immediately after button creation and reset all relevant state on New Game — Copilot assisted
 if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(low, high)

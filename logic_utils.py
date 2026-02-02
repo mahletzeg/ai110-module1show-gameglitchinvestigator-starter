@@ -1,5 +1,6 @@
 import random
 
+#FIX: Moved logic from app.py to logic_utils.py — Copilot assisted
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
     if difficulty == "Easy":
@@ -75,6 +76,7 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
     return current_score
 
 
+#FIX: Added a helper to reset all relevant session state when starting a new game — Copilot assisted
 def reset_game_state(session_state: dict, low: int, high: int, difficulty: str):
     """
     Reset session-like dict to start a new game.

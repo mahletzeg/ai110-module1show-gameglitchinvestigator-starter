@@ -21,6 +21,7 @@ def test_guess_too_low():
     assert outcome == "Too Low"
 
 
+#FIX: Added test to ensure reset_game_state clears all relevant session keys (covers New Game bug) — Copilot assisted
 def test_reset_game_state_resets_all(monkeypatch):
     state = {
         "attempts": 5,
