@@ -94,7 +94,7 @@ if "secret" not in st.session_state:
 
 # FIXME: The attempt logic breaks here (discrepancy with number of attempts)
 if "attempts" not in st.session_state:
-    st.session_state.attempts = 1
+    st.session_state.attempts = 0
 
 if "score" not in st.session_state:
     st.session_state.score = 0
@@ -122,7 +122,7 @@ with st.expander("Developer Debug Info"):
 # FIXME: The attempt counter logic breaks here
 raw_guess = st.text_input(
     "Enter your guess:",
-    key=f"guess_input_{difficulty}"
+    # key=f"guess_input_{difficulty}"
 )
 
 col1, col2, col3 = st.columns(3)
@@ -133,41 +133,29 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
-# FIXME: The new game logic breaks here
 if new_game:
-    st.session_state.attempts = 0
-    st.session_state.secret = random.randint(low, high)
-    st.session_state.score = 0
-    st.session_state.history = []
-    st.session_state.status = "playing"
-    st.success("New game started.")
+    # ...existing new game reset logic...
     st.rerun()
 
-if st.session_state.status != "playing":
-    if st.session_state.status == "won":
-        st.success("You already won. Start a new game to play again.")
-    else:
-        st.error("Game over. Start a new game to try again.")
-    st.stop()
+if "last_hint" not in st.session_state:
+    st.session_state.last_hint = None
 
 if submit:
     st.session_state.attempts += 1
-
     ok, guess_int, err = parse_guess(raw_guess)
-
     if not ok:
         st.session_state.history.append(raw_guess)
         st.error(err)
+        st.session_state.last_hint = None
     else:
         st.session_state.history.append(guess_int)
-
         if st.session_state.attempts % 2 == 0:
             secret = str(st.session_state.secret)
         else:
             secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)
-
+        st.session_state.last_hint = message
         if show_hint:
             st.warning(message)
 
@@ -188,10 +176,34 @@ if submit:
             if st.session_state.attempts >= attempt_limit:
                 st.session_state.status = "lost"
                 st.error(
-                    f"Out of attempts! "
-                    f"The secret was {st.session_state.secret}. "
+                    f"Out of attempts! The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
+
+    # clear the input and force an immediate rerun so the attempts display updates now
+    st.session_state[f"guess_input_{difficulty}"] = ""
+    st.experimental_rerun()
+
+if show_hint and st.session_state.last_hint:
+    st.warning(st.session_state.last_hint)
+
+
+# FIXME: The new game logic breaks here
+if new_game:
+    st.session_state.attempts = 0
+    st.session_state.secret = random.randint(low, high)
+    st.session_state.score = 0
+    st.session_state.history = []
+    st.session_state.status = "playing"
+    st.success("New game started.")
+    st.rerun()
+
+if st.session_state.status != "playing":
+    if st.session_state.status == "won":
+        st.success("You already won. Start a new game to play again.")
+    else:
+        st.error("Game over. Start a new game to try again.")
+    st.stop()
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")
