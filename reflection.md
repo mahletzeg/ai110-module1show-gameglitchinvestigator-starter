@@ -29,6 +29,8 @@ I used ChatGPT and GitHub Copilot in VS Code while working on this project. One 
   and what it showed you about your code.
 - Did AI help you design or understand any tests? How?
 
+I considered a bug fixed when the relevant pytest passed and manual interaction with the running app showed the expected behavior, such as the attempts updating immediately after submit, hints persisting across the rerun, and the New Game button fully reseting the game. One test I ran was test_reset_game_state_resets_all, which uses monkeypatch to make random.randint deterministic and asserts all session keys are reset, and running the pytest confirmed the reset helper works. I also ran the app locally and verified that submitting a guess updates the "Attempts left" display immediately, hints are shown after the rerun, and pressing New Game resets secret, attempts, history, and input. I used AI (Copilot/ChatGPT) to suggest the reset_game_state helper, add the method into logic_utils.py, and to design the unit test. Then, I adapted the suggestions to match the app's session-state keys and UI flow.
+
 ---
 
 ## 4. What did you learn about Streamlit and state?
