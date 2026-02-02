@@ -26,3 +26,6 @@ It wrote the code, ran away, and now the game is unplayable.
 ## 📸 Demo
 
 [Insert screenshot of your fixed, winning game here]
+
+
+![Image 2-1-26 at 11 53 PM](https://github.com/user-attachments/assets/8c7320f8-a74b-4ab0-921e-340fc32860a8)
