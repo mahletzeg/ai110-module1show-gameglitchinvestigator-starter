@@ -18,6 +18,8 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - Give one example of an AI suggestion you accepted and why.
 - Give one example of an AI suggestion you changed or rejected and why.
 
+I used ChatGPT and GitHub Copilot in VS Code while working on this project. One AI suggestion I accepted was changing the code related to starting a new game, because it helped reset the game state more consistently and fixed some of the repeated “game over” messages. One AI suggestion I changed was installing Streamlit using pip install streamlit, because that didn’t solve the problem in my case. I realized the real issue was that pip and python were using different paths, so I used python -m pip install streamlit instead, which correctly installed Streamlit in the active Python environment.
+
 ---
 
 ## 3. Debugging and testing your fixes
